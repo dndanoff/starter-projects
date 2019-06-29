@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+
+	<springProperty scope="context" name="LOG_AGGREGATOR_ADDRESS" source="logging.remote.address" />
+	<springProperty scope="context" name="LOG_AGGREGATOR_PORT" source="logging.remote.port" />
+
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.jooq" level="INFO" />
+	<logger name="io.github.dndanoff" level="DEBUG" />
+
+	<!-- File appender Configuration -->
+	<appender name="FILE_SIZE_AND_TIME_BASED"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/frontend.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/frontend.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%15.15t] %-40.40logger{39} : MDC[manufacturer=%mdc{manufacturer}, code=%mdc{code}] %m%n%ex{full}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Gelf-logstash-Configuration -->
+	<appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+		<graylogHost>${LOG_AGGREGATOR_ADDRESS}</graylogHost>
+		<graylogPort>${LOG_AGGREGATOR_PORT}</graylogPort>
+
+		<layout class="de.siegmar.logbackgelf.GelfLayout">
+            <includeRawMessage>true</includeRawMessage>
+            <includeMarker>true</includeMarker>
+            <includeMdcData>true</includeMdcData>
+            <includeCallerData>true</includeCallerData>
+            <includeRootCauseData>true</includeRootCauseData>
+            <includeLevelName>true</includeLevelName>
+        </layout>
+	</appender>
+
+	<root level="INFO">
+		<springProfile name="prod">
+			<appender-ref ref="GELF" />
+		</springProfile>
+		<appender-ref ref="FILE_SIZE_AND_TIME_BASED" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+</configuration>

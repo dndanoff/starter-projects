@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<groups xmlns="http://www.isdc.ro/wro">
+	<group name="base">
+		<!-- CSS -->
+		<css>webjar:css/bootstrap.min.css</css>
+		<css>/css/style.css</css>
+		<!-- JS -->
+		<js>webjar:jquery.min.js</js>
+		<js>webjar:js/bootstrap.min.js</js>
+		<js>webjar:babel.js</js>
+		<js>webjar:umd/react.development.js</js>
+		<js>webjar:umd/react-dom.development.js</js>
+		<js>webjar:umd/react-router-dom.js</js>
+		<js>webjar:dist/react-redux.js</js>
+		<!-- UTILS -->
+		<js>/js/util/utils.js</js>
+	</group>
+	<group name="app">
+		<!--  React App -->
+		<js>/js/components/my-component.js</js>
+		<js>/js/app.js</js>
+	</group>
+</groups>
