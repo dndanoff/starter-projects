@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "name": "AvroDto",
+    "namespace": "io.github.dndanoff.domain",
+    "fields": [    
+		{
+			"name":"id",
+			"type": "long"
+		}
+    ]
+}
