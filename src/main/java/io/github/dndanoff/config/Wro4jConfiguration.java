@@ -1,4 +1,4 @@
-package io.github.danoff.config;
+package io.github.dndanoff.config;
 
 import java.util.Properties;
 

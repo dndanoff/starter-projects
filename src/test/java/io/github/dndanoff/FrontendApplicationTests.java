@@ -1,4 +1,4 @@
-package io.github.danoff;
+package io.github.dndanoff;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

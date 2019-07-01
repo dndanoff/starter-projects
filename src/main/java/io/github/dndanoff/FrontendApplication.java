@@ -1,4 +1,4 @@
-package io.github.danoff;
+package io.github.dndanoff;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

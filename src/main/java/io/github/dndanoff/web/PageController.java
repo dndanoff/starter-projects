@@ -1,4 +1,4 @@
-package io.github.danoff.web;
+package io.github.dndanoff.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
