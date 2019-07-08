@@ -22,11 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Validated
 @CrossOrigin
-public abstract class AbstractController <D extends DtoWithId> extends AbstractReadOnlyController<D> {
+public abstract class AbstractController <D extends DtoWithId> extends AbstractReadController<D> {
 	
 	@Autowired
-	public AbstractController(ApplicationEventPublisher eventPublisher) {
-		super(eventPublisher);
+	public AbstractController() {
+		super();
 	}
 	
 	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -43,7 +43,7 @@ public abstract class AbstractController <D extends DtoWithId> extends AbstractR
 	
 	@PutMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updateResources(@PathVariable Long id, @Valid @RequestBody D dto) {
+	public void updateResources(@PathVariable Integer id, @Valid @RequestBody D dto) {
 		log.debug("Received request to updateResources() with params id={}, dto={}", id, dto);
 		RestPrecondition.checkRequestElementNotNull(id);
 		RestPrecondition.checkRequestElementNotNull(dto);

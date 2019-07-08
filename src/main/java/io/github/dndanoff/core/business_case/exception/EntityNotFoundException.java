@@ -5,6 +5,6 @@ public class EntityNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public EntityNotFoundException(Integer id) {
-	    super("Could not find AircraftType " + id);
+	    super("Could not find Entity with id= " + id);
 	  }
 }

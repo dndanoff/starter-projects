@@ -12,7 +12,16 @@ class App extends React.Component {
   
   render() {
     return (
-    	<p>Hello World</p>
+    	<BrowserRouter>
+			<div class="container">
+				<Menu />
+				<div className="content">
+					<Route exact path="/" component={LandingPage}/>
+		            <Route exact path="/employees" render={(props) => <EmployeesPage {...props} pageSize={15}/>}/>
+		            <Route path="/employees/:id" component={EmployeeDetailsPage}/>
+	            </div>
+			</div>
+		</BrowserRouter>
     );
   }
 }

@@ -46,7 +46,7 @@ public abstract class AbstractWriteController <D extends DtoWithId> {
 	
 	@PutMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updateResources(@PathVariable Long id, @Valid @RequestBody D dto) {
+	public void updateResources(@PathVariable Integer id, @Valid @RequestBody D dto) {
 		log.debug("Received request to updateResources() with params id={}, dto={}", id, dto);
 		RestPrecondition.checkRequestElementNotNull(id);
 		RestPrecondition.checkRequestElementNotNull(dto);

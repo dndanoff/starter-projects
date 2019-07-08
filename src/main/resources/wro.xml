@@ -18,7 +18,13 @@
 	</group>
 	<group name="app">
 		<!--  React App -->
-		<js>/js/components/my-component.js</js>
+		<js>/js/components/contact.js</js>
+		<js>/js/components/menu.js</js>
+		<js>/js/components/search.js</js>
+		<js>/js/components/employeeCard.js</js>
+		<js>/js/pages/landingPage.js</js>
+		<js>/js/pages/employeesPage.js</js>
+		<js>/js/pages/employeeDetailsPage.js</js>
 		<js>/js/app.js</js>
 	</group>
 </groups>
