@@ -10,17 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class UpdateEntityBusinessCase implements BusinessCase{
-    private final WriteRepository<Entity> repo;
-    private final Validator<Entity> entityValidator;
+public class UpdateEntityBusinessCase<E extends Entity> implements BusinessCase<E>{
+    private final WriteRepository<E> repo;
+    private final Validator<E> entityValidator;
 
     @Autowired
-    public UpdateEntityBusinessCase(WriteRepository<Entity> repo, Validator<Entity> entityValidator) {
+    public UpdateEntityBusinessCase(WriteRepository<E> repo, Validator<E> entityValidator) {
         this.repo = repo;
         this.entityValidator = entityValidator;
     }
 
-    public void updateEntity(Integer id, Entity entity) {
+    public void updateEntity(Integer id, E entity) {
     	log.debug("Calling updateEntity with arguments entity={}", entity);
 		if (!entityValidator.isModelValid(entity)) {
             log.debug("Skipping updateEntity, because of invalid data");

@@ -16,7 +16,7 @@ public class KafkaConsumer {
 	public KafkaConsumer() {
 	}
 	
-	@KafkaListener(topics = "${config.kafka.aircraft-types-feed-topic}", containerFactory = "stringStringConsumerFactory")
+	@KafkaListener(topics = "${config.kafka.my-topic}", containerFactory = "stringStringConsumerFactory")
 	public void receive(String  payload, @Header(KafkaHeaders.OFFSET) Long offset, 
 			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) Integer partition, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic){
 		log.debug("Received command to process with payload={}", payload);

@@ -1,4 +1,4 @@
-package io.github.dndanoff.runner;
+package io.github.dndanoff.cucumber.runner;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -10,7 +10,7 @@ import com.datamountaineer.kafka.schemaregistry.RestApp;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
-import io.github.dndanoff.itest.common.KafkaCommons;
+import io.github.dndanoff.utils.KafkaCommonUtils;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = { "src/test/resources/features/"},
@@ -27,7 +27,7 @@ public class FeaturesRunner {
 	public static void setup() {
 		System.setProperty("config.kafka.bootstrapserver", embeddedKafka.getBrokersAsString());
 		try {
-			schemaRegistry = KafkaCommons.createSchemaRegistry(embeddedKafka);
+			schemaRegistry = KafkaCommonUtils.createSchemaRegistry(embeddedKafka);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class FeaturesRunner {
 	
 	@AfterClass
 	public static void tearDown() {
-		KafkaCommons.stopSchemaRegistry(schemaRegistry);
+		KafkaCommonUtils.stopSchemaRegistry(schemaRegistry);
 	}
 
 }

@@ -5,7 +5,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.github.dndanoff.itest.common.BaseIntegrationTest;
+import io.github.dndanoff.BaseIntegrationTest;
 
 @RunWith(SpringRunner.class)
 @SqlGroup({

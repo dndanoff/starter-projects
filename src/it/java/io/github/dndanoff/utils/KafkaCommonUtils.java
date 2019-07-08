@@ -1,4 +1,4 @@
-package io.github.dndanoff.itest.common;
+package io.github.dndanoff.utils;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -35,11 +35,11 @@ import kafka.admin.AdminUtils;
 import kafka.admin.RackAwareMode;
 import kafka.utils.ZkUtils;
 
-public class KafkaCommons {
+public class KafkaCommonUtils {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommons.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommonUtils.class);
 
-	private KafkaCommons() {
+	private KafkaCommonUtils() {
 		
 	}
 	
@@ -83,10 +83,10 @@ public class KafkaCommons {
 	public static <K,V, S, T> KafkaConsumer<K,V> createConsumer(String kafkaServer, String registryUrl, List<String> topics, Class<K> key, Class<V> value, Class<S> keyDeser, Class<T> valueDeser) {
 		Map<String, Object> consumerProps = KafkaTestUtils.consumerProps(
 				kafkaServer,
-				RandomData.getRandomId(),
+				RandomDataUtils.getRandomId(),
 				"true");
-		consumerProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "test-cons-"+RandomData.getRandomId());
-		consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group-"+RandomData.getRandomId());
+		consumerProps.put(ConsumerConfig.CLIENT_ID_CONFIG, "test-cons-"+RandomDataUtils.getRandomId());
+		consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group-"+RandomDataUtils.getRandomId());
 		consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 		consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, keyDeser);
 		consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, valueDeser);
@@ -150,7 +150,7 @@ public class KafkaCommons {
 		Map<String, Object> producerProps = KafkaTestUtils.senderProps(kafkaServer);
 		producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySer);
 		producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSer);
-		producerProps.put(ProducerConfig.CLIENT_ID_CONFIG, "test-prod-"+RandomData.getRandomId());
+		producerProps.put(ProducerConfig.CLIENT_ID_CONFIG, "test-prod-"+RandomDataUtils.getRandomId());
 		if(registryUrl != null) {
 			producerProps.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
 		}

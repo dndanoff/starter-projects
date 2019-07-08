@@ -1,4 +1,4 @@
-package io.github.dndanoff.itest.common;
+package io.github.dndanoff.utils;
 
 import java.util.List;
 import java.util.Random;
@@ -7,7 +7,7 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class RandomData {
+public class RandomDataUtils {
 
 	public static String getRandomUUID() {
 		return UUID.randomUUID().toString();

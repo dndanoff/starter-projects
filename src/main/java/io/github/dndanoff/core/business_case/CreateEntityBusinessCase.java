@@ -10,18 +10,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CreateEntityBusinessCase implements BusinessCase{
+public class CreateEntityBusinessCase<E extends Entity> implements BusinessCase<E>{
 	
-	private final WriteRepository<Entity> repo;
-	private final Validator<Entity> entityValidator;
+	private final WriteRepository<E> repo;
+	private final Validator<E> entityValidator;
 	
 	@Autowired
-	public CreateEntityBusinessCase(WriteRepository<Entity> repo, Validator<Entity> entityValidator) {
+	public CreateEntityBusinessCase(WriteRepository<E> repo, Validator<E> entityValidator) {
 		this.repo = repo;
 		this.entityValidator = entityValidator;
 	}
 	
-	public void createEntity(Entity entity) {
+	public void createEntity(E entity) {
 		log.debug("Calling createEntity with arguments entity={}", entity);
 		if (!entityValidator.isModelValid(entity)) {
             log.debug("Skipping getAllEntities, because of invalid data");
