@@ -1,7 +1,6 @@
 package io.github.dndanoff.core.business_case;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import io.github.dndanoff.core.business_case.dao.ReadRepository;
 import io.github.dndanoff.core.business_case.service.Validator;
@@ -12,22 +11,27 @@ import io.github.dndanoff.core.vo.SearchInput;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-//@Service
-public class SearchEntitiesBusinessCase implements BusinessCase{
+public class SearchEntitiesBusinessCase<E extends Entity> implements BusinessCase<E>{
 
-    private final ReadRepository<Entity> repo;
-    private final Validator<SearchInput> entityValidator;
+    private final ReadRepository<E> repo;
+    private final Validator<SearchInput> searchValidator;
+    private final Validator<ListInput> listValidator;
 
     @Autowired
-    public SearchEntitiesBusinessCase(ReadRepository<Entity> repo, Validator<SearchInput> entityValidator) {
+    public SearchEntitiesBusinessCase(ReadRepository<E> repo, Validator<SearchInput> searchValidator, Validator<ListInput> listValidator) {
         this.repo = repo;
-        this.entityValidator = entityValidator;
+        this.searchValidator = searchValidator;
+        this.listValidator = listValidator;
     }
 
-    public ResultList getSearchEntities(SearchInput searchInput, ListInput listInput) {
+    public ResultList<E> getSearchEntities(SearchInput searchInput, ListInput listInput) {
         log.debug("Returning payload for getSearchEntities with searchInput={}",
         		searchInput);
-        if (!entityValidator.isModelValid(searchInput)) {
+        if (!listValidator.isModelValid(listInput)) {
+            log.debug("Skipping getSearchEntities, because of invalid data");
+            throw new IllegalArgumentException("invalid data");
+        }
+        if (!searchValidator.isModelValid(searchInput)) {
             log.debug("Skipping getSearchEntities, because of invalid data");
             throw new IllegalArgumentException("invalid data");
         }

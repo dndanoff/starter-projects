@@ -1,4 +1,4 @@
-package io.github.dndanoff.itest.common;
+package io.github.dndanoff.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileUtil {
+public class FileUtils {
 	public static final String COMMA_DELIMITER = ",";
 	
 	

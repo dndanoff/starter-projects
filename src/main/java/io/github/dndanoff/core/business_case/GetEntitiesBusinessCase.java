@@ -2,7 +2,6 @@ package io.github.dndanoff.core.business_case;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import io.github.dndanoff.core.business_case.dao.ReadRepository;
 import io.github.dndanoff.core.business_case.exception.EntityNotFoundException;
@@ -13,18 +12,17 @@ import io.github.dndanoff.core.vo.ResultList;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-//@Service
-public class GetEntitiesBusinessCase implements BusinessCase{
-    private final ReadRepository<Entity> repo;
+public class GetEntitiesBusinessCase<E extends Entity> implements BusinessCase<E>{
+    private final ReadRepository<E> repo;
     private final Validator<ListInput> entityValidator;
 
     @Autowired
-    public GetEntitiesBusinessCase(ReadRepository<Entity> repo, Validator<ListInput> entityValidator) {
+    public GetEntitiesBusinessCase(ReadRepository<E> repo, Validator<ListInput> entityValidator) {
         this.repo = repo;
         this.entityValidator = entityValidator;
     }
 
-    public ResultList getAllEntities(ListInput listInput) {
+    public ResultList<E> getAllEntities(ListInput listInput) {
         log.debug("Returning payload for getAllEntities with listInput={}",
         		listInput);
         if (!entityValidator.isModelValid(listInput)) {
@@ -34,7 +32,7 @@ public class GetEntitiesBusinessCase implements BusinessCase{
         return repo.findAll(listInput);
     }
 
-    public Entity getAircraftTypeById(Integer id) {
+    public E getEntityById(Integer id) {
         return repo.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     }
 
