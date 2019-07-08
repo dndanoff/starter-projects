@@ -1,5 +1,7 @@
 package io.github.dndanoff.core.business_case;
 
-public interface BusinessCase {
+import io.github.dndanoff.core.entity.Entity;
+
+public interface BusinessCase<E extends Entity> {
 
 }

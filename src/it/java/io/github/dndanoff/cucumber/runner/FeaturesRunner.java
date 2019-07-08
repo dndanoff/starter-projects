@@ -1,4 +1,4 @@
-package io.github.dndanoff.runner;
+package io.github.dndanoff.cucumber.runner;
 
 import org.junit.runner.RunWith;
 

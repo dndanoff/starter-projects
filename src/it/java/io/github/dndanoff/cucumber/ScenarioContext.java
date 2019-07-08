@@ -1,4 +1,4 @@
-package io.github.dndanoff.itest.common;
+package io.github.dndanoff.cucumber;
 
 import java.util.HashMap;
 import java.util.Map;
