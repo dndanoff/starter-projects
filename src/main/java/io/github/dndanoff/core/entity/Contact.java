@@ -4,9 +4,11 @@ import lombok.Data;
 
 @Data
 public final class Contact implements Entity{
-	private final Integer id;
-	private final String name;
-	private String description;
+	private final ContactType type;
 	private final String value;
-	private Integer priority;
+	
+	@Override
+	public Integer getId() {
+		return type.getId();
+	}
 }

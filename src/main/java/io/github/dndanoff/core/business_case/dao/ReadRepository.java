@@ -9,6 +9,7 @@ import io.github.dndanoff.core.vo.SearchInput;
 
 public interface ReadRepository <E extends Entity>{
 	
+	public int count(E entity);
 	public ResultList<E> findAll(ListInput listInput);
 	public Optional<E> findById(Integer id);
 	public ResultList<E> search(ListInput listInput, SearchInput searchInput);

@@ -3,8 +3,11 @@ package io.github.dndanoff.entry_point.web.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.github.dndanoff.core.business_case.TeamMemberCreateBusinessCase;
+import io.github.dndanoff.core.business_case.TeamMemberDeleteBusinessCase;
 import io.github.dndanoff.core.business_case.TeamMemberListBusinessCase;
 import io.github.dndanoff.core.business_case.TeamMemberSearchBusinessCase;
+import io.github.dndanoff.core.business_case.TeamMemberUpdateBusinessCase;
 import io.github.dndanoff.entry_point.web.facade.Facade;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,29 +15,28 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class TeamMemberWriteFacade implements Facade<TeamMemberDto>{
 	
-	private final TeamMemberListBusinessCase listBc;
-	private final TeamMemberSearchBusinessCase searchBc;
+	private final TeamMemberUpdateBusinessCase updateBc;
+	private final TeamMemberCreateBusinessCase createBc;
+	private final TeamMemberDeleteBusinessCase deleteBc;
 	private final TeamMemberMapper mapper;
 	
 	@Autowired
-	public TeamMemberWriteFacade(TeamMemberListBusinessCase listBc, TeamMemberSearchBusinessCase searchBc, TeamMemberMapper mapper) {
-		this.listBc = listBc;
-		this.searchBc = searchBc;
+	public TeamMemberWriteFacade(TeamMemberCreateBusinessCase createBc, TeamMemberUpdateBusinessCase updateBc, TeamMemberDeleteBusinessCase deleteBc, TeamMemberMapper mapper) {
+		this.createBc = createBc;
+		this.updateBc = updateBc;
+		this.deleteBc = deleteBc;
 		this.mapper = mapper;
 	}
 
 	protected TeamMemberDto create(TeamMemberDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.entityToDto(createBc.create(mapper.dtoToEntity(dto)));
 	}
 
 	protected void update(TeamMemberDto dto) {
-		// TODO Auto-generated method stub
-		
+		updateBc.update(mapper.dtoToEntity(dto));
 	}
 
 	protected void delete(long id) {
-		// TODO Auto-generated method stub
-		
+		deleteBc.delete((int) id);
 	}
 }

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import io.github.dndanoff.core.business_case.TeamMemberReadRepository;
 import io.github.dndanoff.core.entity.Contact;
+import io.github.dndanoff.core.entity.ContactType;
 import io.github.dndanoff.core.entity.TeamMember;
 import io.github.dndanoff.core.entity.Technology;
 import io.github.dndanoff.core.entity.Title;
@@ -32,6 +33,7 @@ import io.github.dndanoff.core.vo.ResultList;
 import io.github.dndanoff.core.vo.SearchInput;
 import io.github.dndanoff.db.Tables;
 import io.github.dndanoff.db.tables.records.ContactTypeRecord;
+import io.github.dndanoff.db.tables.records.MemberContactRecord;
 import io.github.dndanoff.db.tables.records.MemberRecord;
 import io.github.dndanoff.db.tables.records.TechnologyRecord;
 import io.github.dndanoff.db.tables.records.TitleRecord;
@@ -202,10 +204,14 @@ public class TeamMemberReadJooqRepositoryImpl implements TeamMemberReadRepositor
 							            return id;
 							        }, r -> {
 							            ContactTypeRecord contactRecord = r.into(Tables.CONTACT_TYPE).into(ContactTypeRecord.class);
-							            String contactValue = r.into(Tables.MEMBER_CONTACT.VALUE).into(String.class);
-							            Contact contact = new Contact(contactRecord.getId().intValue(), contactRecord.getName(), contactValue);
-							            contact.setPriority(contactRecord.getPriority());
-							            contact.setDescription("");
+							            MemberContactRecord memberContact = r.into(Tables.MEMBER_CONTACT).into(MemberContactRecord.class);
+							            
+							            ContactType type = new ContactType(contactRecord.getId().intValue(), contactRecord.getName());
+							    		type.setDescription(contactRecord.getDescription());
+							    		type.setPriority(contactRecord.getPriority());
+							            
+							            Contact contact = new Contact(type, memberContact.getValue());
+
 							            if (contact.getId() == null) {
 							                return null;
 							            }
@@ -239,5 +245,16 @@ public class TeamMemberReadJooqRepositoryImpl implements TeamMemberReadRepositor
         
         return members;
     }
+
+	@Override
+	public int count(TeamMember entity) {
+		return create
+			        .selectCount()
+			        .from(Tables.MEMBER)
+			        .where(Tables.MEMBER.FIRST_NAME.eq(entity.getFirstName()))
+			        .and(Tables.MEMBER.LAST_NAME.eq(entity.getLastName()))
+			        .and(Tables.MEMBER.HIRE_DATE.eq(entity.getHireDate()))
+			        .fetchOne(0, Integer.class);
+	}
 
 }

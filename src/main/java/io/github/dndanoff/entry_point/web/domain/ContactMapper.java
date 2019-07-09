@@ -4,19 +4,27 @@ import org.springframework.stereotype.Service;
 
 import io.github.dndanoff.core.business_case.service.GenericObjectConverter;
 import io.github.dndanoff.core.entity.Contact;
+import io.github.dndanoff.core.entity.ContactType;
 
 @Service
 public class ContactMapper implements GenericObjectConverter<Contact, ContactDto> {
 	
 	public Contact dtoToEntity(ContactDto dto) {
-		Contact entity = new Contact(dto.getId(), dto.getName(), dto.getValue());
-		entity.setDescription(dto.getDescription());
-		entity.setPriority(dto.getPriority());
+		ContactType type = new ContactType(dto.getType().getId(), dto.getType().getName());
+		type.setDescription(dto.getType().getDescription());
+		type.setPriority(dto.getType().getPriority());
+		Contact entity = new Contact(type, dto.getValue());
 		
 		return entity;
 	}
 	
 	public ContactDto entityToDto(Contact entity) {
-		return new ContactDto(entity.getId(), entity.getName(), entity.getDescription(), entity.getValue(), entity.getPriority());
+		ContactTypeDto type = new ContactTypeDto();
+		type.setDescription(entity.getType().getDescription());
+		type.setPriority(entity.getType().getPriority());
+		type.setId(entity.getType().getId());
+		type.setName(entity.getType().getName());
+		
+		return new ContactDto(type, entity.getValue());
 	}
 }

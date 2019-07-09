@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import io.github.dndanoff.core.business_case.common.UpdateBusinessCase;
+import io.github.dndanoff.core.business_case.dao.ReadRepository;
 import io.github.dndanoff.core.business_case.dao.WriteRepository;
 import io.github.dndanoff.core.business_case.service.Validator;
 import io.github.dndanoff.core.entity.TeamMember;
@@ -15,8 +16,8 @@ public class TeamMemberUpdateBusinessCase extends UpdateBusinessCase<TeamMember>
 	protected final ApplicationEventPublisher eventPublisher;
 	
 	@Autowired
-	public TeamMemberUpdateBusinessCase(WriteRepository<TeamMember> repo, Validator<TeamMember> validator, ApplicationEventPublisher eventPublisher) {
-		super(repo, validator);
+	public TeamMemberUpdateBusinessCase(ReadRepository<TeamMember> readRepo, WriteRepository<TeamMember> writeRepo, Validator<TeamMember> validator, ApplicationEventPublisher eventPublisher) {
+		super(readRepo, writeRepo,validator);
 		this.eventPublisher = eventPublisher;
 	}
 

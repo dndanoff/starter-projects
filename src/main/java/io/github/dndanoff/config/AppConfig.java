@@ -38,7 +38,6 @@ public class AppConfig {
 		private String bootstrapserver;
 		private String registry;
 		private Boolean sslEnabled;
-		private String manufacturerTopic;
 	}
 	
 	@ConfigurationProperties(prefix = "retry.backoff.kafka.consumer")
