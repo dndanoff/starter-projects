@@ -30,7 +30,7 @@ public abstract class UpdateBusinessCase <E extends Entity> implements BusinessC
             throw new IllegalArgumentException("invalid data");
         }
 		
-		if(readRepo.count(entity) > 1) {
+		if(readRepo.checkIfEntityExists(entity)) {
 			log.debug("Skipping create, because entity with same data already present");
             throw new IllegalArgumentException("entity with same data already presen");
 		}

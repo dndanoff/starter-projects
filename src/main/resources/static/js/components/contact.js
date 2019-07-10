@@ -5,18 +5,18 @@ class Contact extends React.Component {
 	  }
 
 	  render() {
-		  let value = this.props.contact.value;
-		  let contactValue = <span>{value}</span>;
-			if("E-MAIL" == this.props.contact.name.toUpperCase()){
-				contactValue = <a href={"mailto:"+value}>{value}</a>;
-			}else if("MOBILE" == this.props.contact.name.toUpperCase()){
-				contactValue = <a href={"tel:"+value}>{value}</a>;
-			}
+		let value = this.props.contact.value;
+		let contactValue = <span>{value}</span>;
+		if("E-MAIL" == this.props.contact.type.name.toUpperCase()){
+			contactValue = <a href={"mailto:"+value}>{value}</a>;
+		}else if("MOBILE" == this.props.contact.type.name.toUpperCase()){
+			contactValue = <a href={"tel:"+value}>{value}</a>;
+		}
 		  
 	    return (
 	    	<div class="row">
 		    	<div class="col">
-		    		{this.props.contact.name}
+		    		{this.props.contact.type.name}
 		    	</div>
 		    	<div class="col-10">
 		    		{contactValue}

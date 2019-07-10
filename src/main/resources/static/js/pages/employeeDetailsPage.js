@@ -4,8 +4,13 @@ class EmployeeDetailsPage extends React.Component {
 
 	    this.state = {
 	    	employee:{
+	    		active:false,
+	    		firstName: "",
+	    		lastName: "",
+	    		photoUrl: "",
 	    		title:{},
-	    		contacts:[]
+	    		contacts:[],
+	    		knownTechnologies: []
 	    	},
 	    	error:""
 		};
@@ -13,7 +18,6 @@ class EmployeeDetailsPage extends React.Component {
 
 	  componentDidMount() {
 		  var that = this;
-		  
 		  if(!this.props.match.params.id){
 			  this.setState((prevState, props) => ({
 		    		error:"Id is not present"
@@ -22,7 +26,7 @@ class EmployeeDetailsPage extends React.Component {
 		  }
 		  
 		  $.ajax({
-		        url: "/api/members/"+that.props.match.params.id,
+		        url: "/v1/team-members/"+that.props.match.params.id,
 		    })
 		    .done(function(data) {
 		    	that.setState((prevState, props) => ({
@@ -56,7 +60,7 @@ class EmployeeDetailsPage extends React.Component {
 		let contacts = [];
 		for (var i = 0; i < this.state.employee.contacts.length; i++) {
 			contacts.push(
-				<Contact key={this.state.employee.contacts[i].id} contact={this.state.employee.contacts[i]}/>
+				<Contact key={this.state.employee.contacts[i].type.id} contact={this.state.employee.contacts[i]}/>
 			);
 		}
 

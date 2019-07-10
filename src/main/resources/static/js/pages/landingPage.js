@@ -7,7 +7,7 @@ class LandingPage extends React.Component {
 	  render() {
 	    return (
 	  		<div class="container text-center">
-			    <img id="logo" class="img-fluid" src="/images/dreamix-logo.png"/>
+	  			<NavLink className="nav-link" to="/employees"><img id="logo" class="img-fluid" src="/images/dreamix-logo.png"/></NavLink>
 			</div>
 	    );
 	  }

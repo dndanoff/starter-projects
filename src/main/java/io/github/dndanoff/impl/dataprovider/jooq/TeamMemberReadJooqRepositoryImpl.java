@@ -247,14 +247,31 @@ public class TeamMemberReadJooqRepositoryImpl implements TeamMemberReadRepositor
     }
 
 	@Override
-	public int count(TeamMember entity) {
-		return create
-			        .selectCount()
-			        .from(Tables.MEMBER)
-			        .where(Tables.MEMBER.FIRST_NAME.eq(entity.getFirstName()))
-			        .and(Tables.MEMBER.LAST_NAME.eq(entity.getLastName()))
-			        .and(Tables.MEMBER.HIRE_DATE.eq(entity.getHireDate()))
-			        .fetchOne(0, Integer.class);
+	public boolean checkIfEntityExists(TeamMember entity) {
+		List<MemberRecord> members = create
+								        .select()
+								        .from(Tables.MEMBER)
+								        .where(Tables.MEMBER.FIRST_NAME.eq(entity.getFirstName()))
+								        .and(Tables.MEMBER.LAST_NAME.eq(entity.getLastName()))
+								        .and(Tables.MEMBER.HIRE_DATE.eq(entity.getHireDate()))
+								        .fetchInto(MemberRecord.class);
+		
+		if(members.size() > 1) {
+			return true;
+		}
+		
+		if(entity.getId() != null) {
+			MemberRecord memberRecord = members.get(0);
+			if(!memberRecord.getId().equals(entity.getId().longValue())) {
+				return true;
+			}
+		}else {
+			if(!members.isEmpty()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

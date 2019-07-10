@@ -6,7 +6,7 @@ class EmployeesPage extends React.Component {
 	    this.state = {
 			employees: [],
 			originalEmployees: [],
-			pageNumber:0,
+			offset:0,
 			error: ""
 		};
 	  }
@@ -15,12 +15,12 @@ class EmployeesPage extends React.Component {
 		  var that = this;
 		  
 		  $.ajax({
-		        url: "/api/members?pageSize="+that.props.pageSize+"&pageNumber="+that.state.pageNumber,
+		        url: "/v1/team-members?limit="+that.props.limit+"&offset="+that.state.offset,
 		    })
 		    .done(function(data) {
 		    	that.setState((prevState, props) => ({
-		    		employees: data,
-		    		originalEmployees: data
+		    		employees: data.dtos,
+		    		originalEmployees: data.dtos
 	    		}));
 		    })
 		    .fail(function() {
@@ -69,8 +69,7 @@ class EmployeesPage extends React.Component {
 	    		</div>
     		);
 		  }
-		  
-		  
+
 		let cols = [];
 		for (var i = 0; i < this.state.employees.length; i++) {
 			cols.push(<EmployeeCard key={this.state.employees[i].id} info={this.state.employees[i]}/>);

@@ -18,7 +18,7 @@ class Menu extends React.Component {
 				
 				<div class="collapse navbar-collapse" id="menu">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><NavLink className="nav-link" to="/employees">Team </NavLink></li>
+						<li class="nav-item"><NavLink className="nav-link" to="/employees">Team</NavLink></li>
 					</ul>
 				</div>
 			</nav>
